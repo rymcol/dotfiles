@@ -35,7 +35,7 @@ lazy-lock.json
 **/fish_variables
 
 # tmux plugins
-**/tmux/plugins/*
+.config/tmux/plugins/*
 
 # restic secrets
 .restic
