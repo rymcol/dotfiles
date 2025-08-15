@@ -1,0 +1,36 @@
+[include]
+  path = .personal.gitconfig
+[includeIf "gitdir:**/toknapp/**/.git"]
+  path = .toknapp.gitconfig
+[gpg]
+  program = gpg
+[includeIf "gitdir:/data/data/com.termux/files/**"]
+  path = ~/.config/git/config.termux
+[includeIf "gitdir:/storage/emulated/0/**"]
+  path = ~/.config/git/config.termux
+[includeIf "gitdir:~/"]
+  path = ~/.config/git/config.default
+[commit]
+  gpgsign = true
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+#[url "git@github.com:"]
+#  insteadOf = https://github.com/
+[merge]
+  tool = vimdiff
+[mergetool "vimdiff"]
+  cmd = vim "$MERGED"
+  prompt = false
+[difftool]
+  prompt = false
+[diff]
+  tool = vimdiff
+[pull]
+  rebase = false
+[init]
+  defaultBranch = main
+[url "git@bitbucket.org:"]
+  insteadOf = https://bitbucket.org/
