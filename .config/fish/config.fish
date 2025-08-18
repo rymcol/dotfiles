@@ -88,4 +88,4 @@ set --export PATH $BUN_INSTALL/bin $PATH
 tide configure --auto --style=Lean --prompt_colors='True color' --show_time='24-hour format' --lean_prompt_height='Two lines' --prompt_connection=Dotted --prompt_connection_andor_frame_color=Lightest --prompt_spacing=Compact --icons='Many icons' --transient=Yes
 
 # starship
-# starship init fish | source
+starship init fish | source
