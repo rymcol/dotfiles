@@ -1,0 +1,4 @@
+window-padding-x = 10
+theme = solarized-osaka-night
+background-opacity = 0.9
+keybind = "ctrl+shift+,=reload_config"
