@@ -199,6 +199,10 @@ staged = "[▪┤[$count](bold white)│](italic bright-cyan)"
 renamed = "[◎◦](italic bright-blue)"
 deleted = "[✕](italic red)"
 
+[gcloud]
+symbol = '️🇬️'
+format = '[$symbol$active]($style) '
+
 [deno]
 format = " [deno](italic) [∫ $version](green bold)"
 version_format = "${raw}"
