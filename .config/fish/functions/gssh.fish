@@ -12,5 +12,5 @@ function gssh -d "wrapper for gcloud compute ssh with TERM"
         set zone us-central1-b
     end
 
-    TERM=xterm-256color gcloud compute ssh --zone $zone $machine --ssh-flag="-A"
+    TERM=xterm-256color gcloud compute ssh --zone $zone $machine --ssh-flag="-A -o ConnectTimeout=10"
 end
