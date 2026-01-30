@@ -20,17 +20,25 @@
 #[url "git@github.com:"]
 #  insteadOf = https://github.com/
 [merge]
-  tool = vimdiff
+	tool = Kaleidoscope
 [mergetool "vimdiff"]
   cmd = vim "$MERGED"
   prompt = false
 [difftool]
-  prompt = false
+	prompt = false
+	trustExitCode = true
 [diff]
-  tool = vimdiff
+	tool = Kaleidoscope
 [pull]
   rebase = false
 [init]
   defaultBranch = main
 [url "git@bitbucket.org:"]
   insteadOf = https://bitbucket.org/
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[mergetool]
+	prompt = false

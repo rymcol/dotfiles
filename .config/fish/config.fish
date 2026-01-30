@@ -60,6 +60,9 @@ end
 
 ### Every Platform ###
 
+# Fix for fish prompt backwards
+set -g fish_key_bindings fish_hybrid_key_bindings
+
 # Restic
 set -gx RESTIC_PASSWORD_FILE "$HOME/.restic"
 set -gx RESTIC_REPOSITORY /Volumes/restic
@@ -87,5 +90,12 @@ set --export PATH $BUN_INSTALL/bin $PATH
 # init correct tide config
 tide configure --auto --style=Lean --prompt_colors='True color' --show_time='24-hour format' --lean_prompt_height='Two lines' --prompt_connection=Dotted --prompt_connection_andor_frame_color=Lightest --prompt_spacing=Compact --icons='Many icons' --transient=Yes
 
+# AWS
+set -gx AWS_PROFILE AdministratorAccess-637423570300
+set -gx PULUMI_CONFIG_PASSPHRASE_FILE /Users/ryan/.pulumi/config
+
 # starship
 starship init fish | source
+
+set -U fish_user_paths /Users/ryan/.groundcover/bin $fish_user_paths
+export PATH="$HOME/.local/bin:$PATH"

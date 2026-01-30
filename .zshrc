@@ -8,3 +8,5 @@ eval "$(atuin init zsh)"
 ## starship
 eval "$(starship init zsh)"
 
+
+export PATH=/Users/ryan/.groundcover/bin:${PATH}
