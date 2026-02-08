@@ -1,6 +1,6 @@
-window-padding-x = 10
+window-padding-x = 3
 # theme = Gruvbox Dark
-theme = Subliminal
+theme = Afterglow
 background-opacity = 0.9
 keybind = "ctrl+shift+,=reload_config"
 font-family = "Hack Nerd Font"
