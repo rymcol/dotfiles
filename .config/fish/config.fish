@@ -48,6 +48,8 @@ else
                 set -gx PATH "$PNPM_HOME" $PATH
             end
             # pnpm end
+        case Linux
+            set -gx SIGNAL_PASSWORD_STORE gnome-libsecret
     end
 
     ## both macOS & Linux
