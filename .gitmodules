@@ -10,3 +10,6 @@
 [submodule ".vim/pack/dist/start/vim-fugitive"]
 	path = .vim/pack/dist/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
+[submodule ".config/quickshell/noctalia-shell"]
+	path = .config/quickshell/noctalia-shell
+	url = https://github.com/noctalia-dev/noctalia-shell
