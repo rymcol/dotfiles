@@ -105,7 +105,7 @@ vimcmd_replace_symbol = "□"
 vimcmd_visual_symbol = "▼"
 
 [os]
-format = '[$symbol](bold white) '   
+format = '[$symbol](bold white) '
 disabled = false
 
 [os.symbols]
