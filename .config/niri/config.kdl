@@ -36,7 +36,7 @@ input {
         // drag false
         // drag-lock
         natural-scroll
-        // accel-speed 0.5
+        accel-speed 0.4
         // accel-profile "flat"
         // scroll-method "two-finger"
         // disabled-on-external-mouse
@@ -48,6 +48,18 @@ input {
         // accel-speed 0.2
         // accel-profile "flat"
         // scroll-method "no-scroll"
+    }
+
+    trackball {
+        // off
+        natural-scroll
+        accel-speed 0.35
+        // accel-profile "flat"
+        // scroll-method "on-button-down"
+        // scroll-button 273
+        // scroll-button-lock
+        left-handed
+        // middle-emulation
     }
 
     trackpoint {
@@ -67,10 +79,11 @@ input {
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     // focus-follows-mouse max-scroll-amount="0%"
-    
+
     touch {
       map-to-output "eDP-1"
     }
+
 }
 
 // You can configure outputs by their name, which you can find
@@ -108,6 +121,12 @@ output "eDP-1" {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=3008 y=0
+}
+
+output "DP-2" {
+  mode "2240x1400@59.968"
+  scale 1.5
+  transform "normal"
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -282,7 +301,7 @@ spawn-sh-at-startup "qs -c noctalia-shell"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
-    // skip-at-startup
+    skip-at-startup
 }
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
@@ -348,6 +367,16 @@ window-rule {
 
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
+window-rule {
+    match app-id="com.mitchellh.ghostty"
+    default-column-width { proportion 1.0; }
+}
+
+window-rule {
+    match app-id="dev.zed.Zed"
+    default-column-width { proportion 1.0; }
+}
+
 window-rule {
     geometry-corner-radius 6
     clip-to-geometry true
