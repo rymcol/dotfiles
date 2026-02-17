@@ -134,6 +134,12 @@ output "DP-2" {
   scale 1.5
 }
 
+// Named workspaces.
+workspace "dev"
+workspace "editor"
+workspace "comms"
+workspace "proton"
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
@@ -298,8 +304,20 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-// This line starts waybar, a commonly used bar for Wayland compositors.
+// Workspace: dev
 spawn-at-startup "ghostty"
+spawn-at-startup "vivaldi"
+spawn-at-startup "zen-beta"
+spawn-at-startup "dolphin"
+
+// Workspace: comms
+spawn-at-startup "1password"
+spawn-at-startup "slack"
+spawn-at-startup "signal-desktop" "--password-store=gnome-libsecret"
+
+// Workspace: proton
+spawn-at-startup "proton-mail"
+spawn-at-startup "protonvpn-app"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 spawn-sh-at-startup "qs -c noctalia-shell"
@@ -354,7 +372,7 @@ window-rule {
     // This app-id regular expression will work for both:
     // - host Firefox (app-id is "firefox")
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id=r#"zen-beta$"# title="^Picture-in-Picture$"
     open-floating true
 }
 
@@ -370,15 +388,43 @@ window-rule {
     // block-out-from "screencast"
 }
 
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
+// Workspace: dev
 window-rule {
     match app-id="com.mitchellh.ghostty"
-    default-column-width { proportion 1.0; }
+    match app-id="vivaldi-stable"
+    match app-id="zen-beta"
+    match app-id="org.kde.dolphin"
+    open-on-workspace "dev"
 }
 
+// Workspace: comms
+window-rule {
+    match app-id="1Password"
+    match app-id="Slack"
+    match app-id="signal"
+    open-on-workspace "comms"
+}
+
+// Workspace: editor
 window-rule {
     match app-id="dev.zed.Zed"
+    open-on-workspace "editor"
+}
+
+// Workspace: proton
+window-rule {
+    match app-id="Proton Mail"
+    match app-id=".protonvpn-app-wrapped"
+    open-on-workspace "proton"
+}
+
+// Full width apps (not fullscreen)
+window-rule {
+    match app-id="com.mitchellh.ghostty"
+    match app-id="dev.zed.Zed"
+    match app-id="vivaldi-stable"
+    match app-id="zen-beta"
+    match app-id="codium"
     default-column-width { proportion 1.0; }
 }
 
@@ -388,17 +434,10 @@ window-rule {
     match app-id="Slack"
     match app-id="1Password"
     match app-id="Proton Mail"
+    match app-id=".protonvpn-app-wrapped"
     match app-id="Ledger Wallet"
     match app-id="org.kde.dolphin"
     default-column-width { proportion 0.66667; }
-}
-
-// Full width apps (not fullscreen)
-window-rule {
-    match app-id="vivaldi-stable"
-    match app-id="zen-beta"
-    match app-id="codium"
-    default-column-width { proportion 1.0; }
 }
 
 window-rule {
