@@ -395,6 +395,7 @@ window-rule {
     match app-id="zen-beta"
     match app-id="org.kde.dolphin"
     open-on-workspace "dev"
+    open-focused true
 }
 
 // Workspace: comms
@@ -403,12 +404,14 @@ window-rule {
     match app-id="Slack"
     match app-id="signal"
     open-on-workspace "comms"
+    open-focused true
 }
 
 // Workspace: editor
 window-rule {
     match app-id="dev.zed.Zed"
     open-on-workspace "editor"
+    open-focused true
 }
 
 // Workspace: proton
@@ -416,6 +419,7 @@ window-rule {
     match app-id="Proton Mail"
     match app-id=".protonvpn-app-wrapped"
     open-on-workspace "proton"
+    open-focused true
 }
 
 // Full width apps (not fullscreen)
