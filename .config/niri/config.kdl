@@ -80,8 +80,14 @@ input {
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     // focus-follows-mouse max-scroll-amount="0%"
 
-    touch {
+    tablet {
       map-to-output "eDP-1"
+      // left-handed
+      calibration-matrix 1.0 0.0 0.0 0.0 1.0 0.0
+    }
+
+    touch {
+      map-to-output "eDP-2"
     }
 
 }
@@ -126,7 +132,6 @@ output "eDP-1" {
 output "DP-2" {
   mode "2240x1400@59.968"
   scale 1.5
-  transform "normal"
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -377,6 +382,25 @@ window-rule {
     default-column-width { proportion 1.0; }
 }
 
+// 2/3 width apps
+window-rule {
+    match app-id="signal"
+    match app-id="Slack"
+    match app-id="1Password"
+    match app-id="Proton Mail"
+    match app-id="Ledger Wallet"
+    match app-id="org.kde.dolphin"
+    default-column-width { proportion 0.66667; }
+}
+
+// Full width apps (not fullscreen)
+window-rule {
+    match app-id="vivaldi-stable"
+    match app-id="zen-beta"
+    match app-id="codium"
+    default-column-width { proportion 1.0; }
+}
+
 window-rule {
     geometry-corner-radius 6
     clip-to-geometry true
@@ -399,11 +423,16 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
-    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+D { spawn-sh "qs -c noctalia-shell ipc call launcher toggle"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+Shift+S hotkey-overlay-title="Launch Signal (with gnome-libsecret)" {
         spawn "signal-desktop" "--password-store=gnome-libsecret";
     }
+
+    // Quickshell
+    Mod+Space { spawn-sh "qs -c noctalia-shell ipc call launcher toggle"; }
+    Mod+S { spawn-sh "qs -c noctalia-shell ipc call controlCenter toggle"; }
+    // Mod+Comma { spawn-sh "qs -c noctalia-shell ipc call settings toggle"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -619,7 +648,8 @@ binds {
 
     // Move the focused window between the floating and the tiling layout.
     Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    // Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+V hotkey-overlay-title="Show CopyQ Clipboard" { spawn "copyq" "show"; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,

@@ -278,6 +278,9 @@ version_format = "${raw}"
 format = '[•](black bold) [󱃾 $context](bold purple) '
 disabled = false
 
+[kubernetes.context_aliases]
+"arn:aws:eks:.*:.*:cluster/(?P<cluster>.*)" = "$cluster"
+
 [aws]
 disabled = true
 format = " [aws](italic) [$symbol $profile $region]($style)"
