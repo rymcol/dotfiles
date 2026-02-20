@@ -31,13 +31,13 @@ input {
     touchpad {
         // off
         tap
-        // dwt
-        // dwtp
+        dwt
+        dwtp // for thinkpad nipple
         // drag false
         // drag-lock
         natural-scroll
         accel-speed 0.4
-        // accel-profile "flat"
+        // accel-profile "flat
         // scroll-method "two-finger"
         // disabled-on-external-mouse
     }
@@ -51,7 +51,6 @@ input {
     }
 
     trackball {
-        // off
         natural-scroll
         accel-speed 0.35
         // accel-profile "flat"
@@ -135,10 +134,18 @@ output "DP-2" {
 }
 
 // Named workspaces.
-workspace "dev"
-workspace "editor"
-workspace "comms"
-workspace "proton"
+workspace "dev" {
+    open-on-output "eDP-1"
+}
+workspace "comms" {
+    open-on-output "eDP-1"
+}
+workspace "proton" {
+    open-on-output "eDP-1"
+}
+workspace "editor" {
+    open-on-output "eDP-1"
+}
 
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
@@ -304,10 +311,12 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
+// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
+spawn-sh-at-startup "qs -c noctalia-shell"
+
 // Workspace: dev
-spawn-at-startup "ghostty"
 spawn-at-startup "vivaldi"
-spawn-at-startup "zen-beta"
+spawn-at-startup "ghostty"
 spawn-at-startup "dolphin"
 
 // Workspace: comms
@@ -318,9 +327,6 @@ spawn-at-startup "signal-desktop" "--password-store=gnome-libsecret"
 // Workspace: proton
 spawn-at-startup "proton-mail"
 spawn-at-startup "protonvpn-app"
-
-// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
-spawn-sh-at-startup "qs -c noctalia-shell"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
@@ -378,7 +384,7 @@ window-rule {
 
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
-/-window-rule {
+window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
     match app-id=r#"^org\.gnome\.World\.Secrets$"#
 
@@ -390,10 +396,21 @@ window-rule {
 
 // Workspace: dev
 window-rule {
+    match title="^clipse$"
+    open-floating true
+    // optional: size { width 600; height 400; }
+}
+
+window-rule {
     match app-id="com.mitchellh.ghostty"
+    open-focused true
+    default-column-width { proportion 1.0; }
+}
+
+window-rule {
+
     match app-id="vivaldi-stable"
     match app-id="zen-beta"
-    match app-id="org.kde.dolphin"
     open-on-workspace "dev"
     open-focused true
 }
@@ -424,7 +441,6 @@ window-rule {
 
 // Full width apps (not fullscreen)
 window-rule {
-    match app-id="com.mitchellh.ghostty"
     match app-id="dev.zed.Zed"
     match app-id="vivaldi-stable"
     match app-id="zen-beta"
@@ -692,7 +708,8 @@ binds {
     // Move the focused window between the floating and the tiling layout.
     Mod+V       { toggle-window-floating; }
     // Mod+Shift+V { switch-focus-between-floating-and-tiling; }
-    Mod+Shift+V hotkey-overlay-title="Show CopyQ Clipboard" { spawn "copyq" "show"; }
+    Mod+Shift+V hotkey-overlay-title="clipse" {
+    spawn "ghostty" "--class=clipse" "--title=clipse" "-e" "clipse"; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
