@@ -1,0 +1,10 @@
+#!/bin/sh
+# SSH_ASKPASS helper: prompt for the YubiKey PIV PIN via pinentry-mac.
+# No keychain option is sent, so pinentry-mac offers no "Save in Keychain"
+# checkbox — the PIN exists only for this exchange.
+{
+	printf 'SETTITLE YubiKey PIV\n'
+	printf 'SETDESC Enter the PIV PIN to unlock the YubiKey SSH key\n'
+	printf 'SETPROMPT PIN:\n'
+	printf 'GETPIN\n'
+} | /opt/homebrew/bin/pinentry-mac 2>/dev/null | sed -n 's/^D //p'

@@ -53,13 +53,10 @@ else
     end
 
     ## both macOS & Linux
-    # gpg-agent is the sole smart-card consumer AND the ssh agent
-    # (serves both the OpenPGP auth key and the PIV 9a key over its ssh socket)
-    if command -q gpgconf
-        set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-        gpgconf --launch gpg-agent
-    end
+    # PGP
+    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     set -x GPG_TTY (tty)
+    gpgconf --launch gpg-agent
 
 end
 
@@ -100,8 +97,3 @@ starship init fish | source
 
 set -U fish_user_paths /Users/ryan/.groundcover/bin $fish_user_paths
 export PATH="$HOME/.local/bin:$PATH"
-
-
-# >>> grok installer >>>
-fish_add_path $HOME/.grok/bin
-# <<< grok installer <<<

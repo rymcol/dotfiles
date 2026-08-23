@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>homebrew.ssh-agent</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/sh</string>
+		<string>-c</string>
+		<string>rm -f /Users/ryan/.ssh/agent.sock; exec /opt/homebrew/bin/ssh-agent -D -a /Users/ryan/.ssh/agent.sock -P '/usr/lib*,/usr/local/lib*,/opt/homebrew/*'</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>KeepAlive</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/Users/ryan/Library/Logs/homebrew.ssh-agent.log</string>
+</dict>
+</plist>

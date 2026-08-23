@@ -1,0 +1,15 @@
+#!/bin/sh
+# Called from ~/.ssh/config (Match exec) before each connection:
+# if the YubiKey PIV key is not loaded in the agent, prompt for the PIN
+# via pinentry-mac and load it. Always exits 0 so the Match never blocks.
+export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
+
+# Already loaded? Nothing to do.
+/opt/homebrew/bin/ssh-add -l 2>/dev/null | grep -q 'PIV Authentication' && exit 0
+
+# Only prompt if the YubiKey is actually present.
+/opt/homebrew/bin/ssh-keygen -D /usr/local/lib/libykcs11.dylib 2>/dev/null | grep -q . || exit 0
+
+SSH_ASKPASS="$HOME/.local/bin/piv-askpass" SSH_ASKPASS_REQUIRE=force \
+	/opt/homebrew/bin/ssh-add -s /usr/local/lib/libykcs11.dylib </dev/null >/dev/null 2>&1
+exit 0
