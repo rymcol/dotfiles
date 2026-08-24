@@ -421,7 +421,7 @@ window-rule {
 
 // Workspace: comms
 window-rule {
-    match app-id="1Password"
+    match app-id="1password"
     match app-id="Slack"
     match app-id="signal"
     open-on-workspace "comms"
@@ -457,7 +457,7 @@ window-rule {
 window-rule {
     match app-id="signal"
     match app-id="Slack"
-    match app-id="1Password"
+    match app-id="1password"
     match app-id="Proton Mail"
     match app-id=".protonvpn-app-wrapped"
     match app-id="Ledger Wallet"

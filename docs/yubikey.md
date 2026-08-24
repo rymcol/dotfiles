@@ -17,8 +17,12 @@ PKCS#11, Secretive) may run: a second CCID consumer clobbers applet
 selection mid-read and corrupts scdaemon's view of the card — this is what
 broke commit signing in Aug 2026.
 
-End state for `authorized_keys` / GitHub: the single PIV key
-(`id_5cnfc.pub`). PIV 9a policy: PIN once per session, touch cached.
+`authorized_keys` / GitHub: the PIV key (`id_5cnfc.pub`) is the primary,
+and the OpenPGP-auth-key `cardno:` lines **stay as an administrative
+backup** — the PGP keys exist off-card and can be imported into a
+replacement YubiKey's slots, while the PIV 9a key was generated on-card
+and is unrecoverable if the hardware is lost or damaged. PIV 9a policy:
+PIN once per session, touch cached.
 
 ## iOS (Prompt 3)
 
@@ -80,10 +84,10 @@ gpgconf --reload scdaemon                        # heavier alternative
 
 `docs/retired-2026-08/` archives the failed PIV-via-ssh-agent attempt:
 yubikey-agent + Homebrew ssh-agent plists, `piv-ensure`/`piv-askpass`
-helpers, `piv.fish`, and the pre-change agent key list. Old-YubiKey
-(`cardno:000610335511`, `id_ryan.pub`) authorized_keys lines should be
-pruned everywhere along with the OpenPGP-auth-key line once the PIV key is
-verified from every device.
+helpers, `piv.fish`, and the pre-change agent key list. Existing
+`cardno:` authorized_keys lines (current and older cards, e.g.
+`id_ryan.pub`) are kept deliberately — see the administrative-backup note
+above.
 
 Follow-up (optional): `~/.ssh` and `~/.gnupg` are real directories, not
 managed by this repo. If they ever move in, use a strict `.gitignore`
