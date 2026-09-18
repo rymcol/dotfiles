@@ -26,17 +26,12 @@ else
 
     switch (uname)
         case Darwin
-            # gcloud macOS
-            source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
+            # gcloud macOS (`gcloud-cli` cask): gcloud/gsutil/bq are already linked
+            # into /opt/homebrew/bin; this adds the SDK bin dir for `gcloud components`
+            fish_add_path -g /opt/homebrew/share/google-cloud-sdk/bin
 
             # Fix ruby path
-            set -gx PATH /opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH
-
-            # Fix ruby path
-            set -gx PATH /opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH
-
-            # gcloud macOS
-            source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
+            fish_add_path -g /opt/homebrew/lib/ruby/gems/3.3.0/bin
 
             # Compilers
             # set -gx LDFLAGS "-L/usr/local/opt/llvm@5/lib"
@@ -44,7 +39,7 @@ else
             # if which swiftenv > /dev/null; status --is-interactive; and source (swiftenv init -|psub); end
             # set -gx SWIFTENV_ROOT "$HOME/.swiftenv"
 
-            export PATH="$PATH:$HOME/.foundry/bin"
+            fish_add_path -g --append ~/.foundry/bin
 
             # pnpm (macOS)
             set -gx PNPM_HOME /Users/ryan/Library/pnpm
@@ -61,9 +56,10 @@ else
     # (serves both the OpenPGP auth key and the PIV 9a key over its ssh socket)
     if command -q gpgconf
         set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-        gpgconf --launch gpg-agent
+        # autostarts gpg-agent like `gpgconf --launch gpg-agent`, but ~10ms instead of ~300ms
+        command gpg-connect-agent /bye &>/dev/null
     end
-    set -x GPG_TTY (tty)
+    status is-interactive; and set -gx GPG_TTY (tty)
 
 end
 
@@ -81,7 +77,8 @@ test -s $HOME/.nvm/nvm.fish; and source $HOME/.nvm/nvm.fish
 alias ne="nvm exec -- "
 
 # Path
-set -gx PATH ~/Developer/bin $PATH
+# fish_add_path -g skips missing dirs and dirs already in $PATH, so nested shells don't grow it
+fish_add_path -g ~/Developer/bin
 set -gx GOPATH ~/Developer
 
 # Rust
@@ -90,20 +87,22 @@ if test -f "$HOME/.cargo/env.fish"
 end
 
 # Fix git
-set -gx IT_TERMINAL_PROMPT 1
+set -gx GIT_TERMINAL_PROMPT 1
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
+fish_add_path -g $BUN_INSTALL/bin
 
 # init correct tide config
 # tide configure --auto --style=Lean --prompt_colors='True color' --show_time='24-hour format' --lean_prompt_height='Two lines' --prompt_connection=Dotted --prompt_connection_andor_frame_color=Lightest --prompt_spacing=Compact --icons='Many icons' --transient=Yes
 
 # starship
-starship init fish | source
+if status is-interactive; and command -q starship
+    starship init fish | source
+end
 
-set -U fish_user_paths /Users/ryan/.groundcover/bin $fish_user_paths
-export PATH="$HOME/.local/bin:$PATH"
+fish_add_path -g ~/.groundcover/bin
+fish_add_path -g ~/.local/bin
 
 
 # >>> grok installer >>>

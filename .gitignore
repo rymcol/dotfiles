@@ -33,6 +33,7 @@ reader_*.status
 lazy-lock.json
 
 **/fish_variables
+**/fish_variables.*
 
 # tmux plugins
 .config/tmux/plugins/*
