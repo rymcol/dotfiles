@@ -89,9 +89,6 @@ set -gx GIT_TERMINAL_PROMPT 1
 set --export BUN_INSTALL "$HOME/.bun"
 fish_add_path -g $BUN_INSTALL/bin
 
-# init correct tide config
-# tide configure --auto --style=Lean --prompt_colors='True color' --show_time='24-hour format' --lean_prompt_height='Two lines' --prompt_connection=Dotted --prompt_connection_andor_frame_color=Lightest --prompt_spacing=Compact --icons='Many icons' --transient=Yes
-
 # starship
 if status is-interactive; and command -q starship
     starship init fish | source
