@@ -72,10 +72,6 @@ set -g fish_key_bindings fish_hybrid_key_bindings
 set -gx RESTIC_PASSWORD_FILE "$HOME/.restic"
 set -gx RESTIC_REPOSITORY /Volumes/restic
 
-# NVM
-test -s $HOME/.nvm/nvm.fish; and source $HOME/.nvm/nvm.fish
-alias ne="nvm exec -- "
-
 # Path
 # fish_add_path -g skips missing dirs and dirs already in $PATH, so nested shells don't grow it
 fish_add_path -g ~/Developer/bin
