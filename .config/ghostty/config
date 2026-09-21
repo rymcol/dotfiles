@@ -1,6 +1,5 @@
 window-padding-x = 3
-# theme = noctalia
 theme = Arthur
-background-opacity = 0.9
+background-opacity = 0.98
 keybind = "ctrl+shift+,=reload_config"
 font-family = "Hack Nerd Font"

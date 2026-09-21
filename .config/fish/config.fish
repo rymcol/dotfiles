@@ -94,10 +94,6 @@ if status is-interactive; and command -q starship
     starship init fish | source
 end
 
-fish_add_path -g ~/.groundcover/bin
-fish_add_path -g ~/.local/bin
-
-
 # >>> grok installer >>>
 fish_add_path $HOME/.grok/bin
 # <<< grok installer <<<
