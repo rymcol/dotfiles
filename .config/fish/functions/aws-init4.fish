@@ -1,3 +1,3 @@
-function aws-init4 --wraps='aws sso login --profile prod; and aws sso login --profile dev;' --description 'alias aws-init4 aws sso login --profile prod; and aws sso login --profile dev;'
-    aws sso login --profile prod; and aws sso login --profile dev; $argv
+function aws-init4 --wraps='aws sso login' --description 'Log in to the shared init4 AWS SSO session (covers dev, prod and caster)'
+    aws sso login --sso-session init4 $argv
 end

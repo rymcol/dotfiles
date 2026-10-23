@@ -70,7 +70,7 @@ set -g fish_key_bindings fish_hybrid_key_bindings
 
 # Restic
 set -gx RESTIC_PASSWORD_FILE "$HOME/.restic"
-set -gx RESTIC_REPOSITORY /Volumes/restic
+set -gx RESTIC_REPOSITORY /Volumes/ry/restic
 
 # Path
 # fish_add_path -g skips missing dirs and dirs already in $PATH, so nested shells don't grow it
@@ -97,3 +97,6 @@ end
 # >>> grok installer >>>
 fish_add_path $HOME/.grok/bin
 # <<< grok installer <<<
+
+# Claude Code native install (~/.local/bin/claude); the installer writes no fish PATH entry.
+fish_add_path ~/.local/bin
